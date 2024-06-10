@@ -190,7 +190,7 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
     if sitze==0:
         array=np.array(df.loc[index,parteien])[:]/np.array(df.loc[index,'Gueltige_Stimmen'])*100
     else:
-        array=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze)
+        array=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze,parteien=parteien)
         ylabel='Gemeinderatssitze'
     d = {'namen': parteien, 'Prozent_24':array}
 
@@ -245,7 +245,7 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
     df_new.loc[:,'namen']=np.where(df_new.loc[:,'namen']=='Meinrad_Spitz','Meinrad Spitz',df_new.loc[:,'namen'])       
 
     plt.bar(df_new.namen,df_new.Prozent_24,color=bar_colors)
-    plt.xticks(rotation=70)
+    plt.xticks(rotation=80)
     plt.ylabel(ylabel)    
     plt.title(title)
 
