@@ -65,17 +65,25 @@ def process_geo(location='Freiburg',Jahr=2024, return_wahl_bezirke=False):
         return Stadtteile, Stadtbezirke 
     
     
-def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]'):
+def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinderat'):
      dic_label={ 'CDU':'Anteil CDU [%]',
        'GRÜNE':'Anteil GRÜNE [%]', 'SPD':'Anteil SPD [%]', 'AfD':'Anteil AfD [%]', 'FDP':'Anteil FDP [%]', 
                'LiSSt.':'Anteil LiSSt. [%]','max-schnellmeldungen':'Moegliche Schnellmeldungen',
                'wahlbezirke_prozent':'Anteil ausgezaehlt [%]',
               'anz-schnellmeldungen':'Anzahl Schnellmeldungen','FW':'Anteil Freie Waehler [%]',
-               'GAF':'Anteil GAF [%]','Volt':'Anteil Volt [%]','FL':'Anteil FL [%]',
+               'GAF':'Anteil GAF [%]','FL':'Anteil FL [%]',
               'Junges_F':'Anteil Junges F [%]','Urbanes_F':'Anteil Urbanes F [%]',
-              'Kultur':'Kultur [%]','DIE_PARTEI':'Anteil DIE Partei [%]',
+              'Kultur':'Anteil Kultur [%]',
               'UFF':'Anteil UFF [%]','Bürger_F':'Anteil Bürger F [%]','LTI':'Anteil LTI [%]',
-               'APPD':'APPD_ [%]','FFPCV':'Anteil FFPCV [%]','Meinrad_Spitz':'Anteil Meinrad Spitz [%]'}
+               'APPD':'APPD_ [%]','FFPCV':'Anteil FFPCV [%]','Meinrad_Spitz':'Anteil Meinrad Spitz [%]', 'LINKE':'Anteil LINKE [%]',
+               'BSW':'Anteil BSW [%]','Volt':'Anteil Volt [%]','Klimaliste':'Anteil Klimaliste [%]',
+              'Letzte_Generation':'Anteil Letzte Generation [%]','ÖDP':'Anteil ÖDP [%]',
+              'Tierschutz':'Anteil Tierschutz [%]','DIE_PARTEI':'Anteil Die Partei [%]',
+              'dieBasis':'Anteil die Basis [%]','Piraten':'Anteil Piraten [%]','Familien':'Anteil Familien [%]',
+               'MERA25':'Anteil MERA25 [%]','DAVA':'Anteil DAVA [%]','Gewinne_CDU':'Gewinne CDU [%]',
+       'Gewinne_GRÜNE':'Gewinne GRÜNE [%]', 'Gewinne_SPD':'Gewinne SPD [%]', 'Gewinne_AfD':'Gewinne AfD [%]', 
+               'Gewinne_FDP':'Gewinne FDP [%]', 
+               'Gewinne_LINKE':'Gewinne LINKE [%]','Gewinne_sonstige':'Gewinne sonstige [%]'}
      col_label={ 'CDU':'Greys',
        'GRÜNE':'Greens', 'SPD':'Reds', 'AfD':'Blues', 'FDP':'plasma', 
                'LiSSt.':'RdPu','max-schnellmeldungen':'Greens',
@@ -83,12 +91,28 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]'):
                'LTI':'BuPu','Volt':'YlGn','GAF':'YlGn',
               'Letzte_Generation':'YlGn','ÖDP':'YlGn',
               'UFF':'Purples',
-              'Urbanes_F':'PuBu','Kultur':'Purples','Bürger_F':'OrRd'
-              }  #'Gewinne_sonstige':'RdYlGn'
-     partei_liste=[ 'CDU',
+              'Urbanes_F':'PuBu','Kultur':'Purples','Bürger_F':'OrRd', 'LINKE':'RdPu',
+              'anz-schnellmeldungen':'Greys','FW':'plasma',
+               'BSW':'BuPu','Volt':'YlGn','Klimaliste':'YlGn',
+              'Letzte_Generation':'YlGn','ÖDP':'YlGn',
+              'Tierschutz':'Purples','DIE_PARTEI':'Purples',
+              'dieBasis':'PuBu','Piraten':'Purples','Familien':'Greys','MERA25':'Purples','DAVA':'OrRd',
+              'Gewinne_CDU':'RdYlGn',
+       'Gewinne_GRÜNE':'RdYlGn', 'Gewinne_SPD':'RdYlGn', 'Gewinne_AfD':'RdYlGn', 'Gewinne_FDP':'RdYlGn', 
+               'Gewinne_LINKE':'RdYlGn','Gewinne_sonstige':'RdYlGn'
+              }  
+     if wahl=='gemeinderat':
+         partei_liste=[ 'CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
        'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+     elif wahl=='europa':    
+             partei_liste=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
+       'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
+       'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
+       'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
+       'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
      if column in dic_label.keys():
          legend=dic_label[column]
      if column in col_label.keys():
