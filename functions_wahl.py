@@ -192,6 +192,8 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
     else:
         array=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze,parteien=parteien)
         ylabel='Gemeinderatssitze'
+        if Wahl=='Europa':
+            ylabel='Europaparliamentssitze'
     d = {'namen': parteien, 'Prozent_24':array}
 
     df_new=pd.DataFrame(data=d)
