@@ -372,3 +372,31 @@ def get_and_save_komm():
 
     #print(f"needed {round(stop_time-start_time,4)} seconds")
     
+def get_and_save_eur():
+    eu_total='https://wahlergebnisse.komm.one/lb/produktion/wahltermin-20240609/08311000/daten/opendata/Open-Data-08311000-Europawahl-2024-Stadt-Freiburg-insgesamt.csv?ts=1717683184474html'
+    eu_stadtbezirke='https://wahlergebnisse.komm.one/lb/produktion/wahltermin-20240609/08311000/daten/opendata/Open-Data-08311000-Europawahl-2024-Stadtbezirke.csv?ts=1717763903131'
+    eu_wahlbezirke='https://wahlergebnisse.komm.one/lb/produktion/wahltermin-20240609/08311000/daten/opendata/Open-Data-08311000-Europawahl-2024-Wahlbezirk.csv?ts=1717763903131'
+
+    name_output=['eu24_summe.csv','eu24_stadtbezirke.csv','eu24_wahlbezirke.csv']
+    url_list=[eu_total,eu_stadtbezirke,eu_wahlbezirke]
+
+    dic_euro={'A1':'Wahlberechtigte_lokal', 'A2':'Wahlberechtigte_nicht_lokal', 'A3':'Wahlberechtigte_zusaetzliche', 'A':'Wahlberechtigte_summe',
+       'B':'Waehler', 'B1':'Waehler_Wahlschein', 'C':'Ungueltige_Stimmen', 'D':'Gueltige_Stimmen', 'D1':'CDU', 'D2':'GRÜNE', 'D3':'SPD', 'D4':'AfD', 'D5':'FDP', 'D6':'FW', 'D7':'LINKE', 'D8':'DIE_PARTEI',
+       'D9':'Tierschutz', 'D10':'ÖDP', 'D11':'Volt', 'D12':'Piraten', 'D13':'Familien', 'D14':'MERA25', 'D15':'Bündnis_C',
+          'D16':'Aktion_Tierschutz', 'D17':'BIG', 'D18':'HEIMAT',
+       'D19':'PdH', 'D20':'PfSV', 'D21':'MW','D22':'MLPD', 'D23':'DKP', 'D24':'SGP', 'D25':'ABG', 
+          'D26':'dieBasis', 'D27':'B_Deutschland', 'D28':'BSW',
+       'D29':'DAVA', 'D30':'Klimaliste', 'D31':'Letzte_Generation', 'D32':'PDV', 'D33':'PdF', 'D34':'PVVV'}
+    start_time=time.time()
+    for i in range(len(url_list)):
+        print(f"getting table {i}")
+        data = requests.get(url_list[i])
+        val=data.content
+        csv_data = val.decode('utf-8')
+        csv_file = io.StringIO(csv_data)
+        df = pd.read_csv(csv_file,sep=';')
+        df = df.rename(columns=dic_euro)
+        df.to_csv(name_output[i],sep=';')
+   stop_time=time.time()    
+
+   #print(f"needed {round(stop_time-start_time,4)} seconds")
