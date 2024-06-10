@@ -174,14 +174,23 @@ def sainte_l(array_all,sitze=48,test=True,parteien=['CDU',
         return res_sitze         
     
     
-def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",parteien=['CDU',
+def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU','GRÜNE', 'SPD', 'AfD', 'FDP', 'FW']):
+    if Wahl=='Gemeinderat':
+        parteien=['CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
-       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz'],sitze=False):
-    if sitze==False:
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+    elif Wahl=='Europa':
+        parteien=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
+       'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
+       'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
+       'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
+       'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
+    if sitze==0:
         array=np.array(df.loc[index,parteien])[:]/np.array(df.loc[index,'Gueltige_Stimmen'])*100
     else:
-        array=sainte_l(df.loc[index,parteien][:],test=False)
+        array=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze)
         ylabel='Gemeinderatssitze'
     d = {'namen': parteien, 'Prozent_24':array}
 
