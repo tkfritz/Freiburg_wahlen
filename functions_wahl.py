@@ -174,7 +174,7 @@ def sainte_l(array_all,sitze=48,test=True,parteien=['CDU',
         return res_sitze         
     
     
-def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU','GRÜNE', 'SPD', 'AfD', 'FDP', 'FW']):
+def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU','GRÜNE', 'SPD', 'AfD', 'FDP', 'FW'],Wahl='Gemeinderat'):
     if Wahl=='Gemeinderat':
         parteien=['CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
