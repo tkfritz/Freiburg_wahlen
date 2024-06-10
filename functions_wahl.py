@@ -234,9 +234,23 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
         elif parteien[i]=='Kultur':
             bar_colors.append('brown')   
         elif parteien[i]=='Bürger_F':
-            bar_colors.append('olive')       
+            bar_colors.append('olive')   
+        elif parteien[i]=='BSW':
+            bar_colors.append('darkred')
+        elif parteien[i]=='LINKE':
+            bar_colors.append('magenta')            
         elif parteien[i]=='APPD':
-            bar_colors.append('pink')              
+            bar_colors.append('pink')      
+        elif parteien[i]=='ÖDP':
+            bar_colors.append('orange')     
+        elif parteien[i]=='Tierschutz':
+            bar_colors.append('darkseagreen')     
+        elif parteien[i]=='MERA25':
+            bar_colors.append('orangered')           
+        elif parteien[i]=='Letzte_Generation':
+            bar_colors.append('lime')    
+        elif parteien[i]=='PdF':
+            bar_colors.append('gold')              
         else:    
             bar_colors.append('lightgray')   
        
