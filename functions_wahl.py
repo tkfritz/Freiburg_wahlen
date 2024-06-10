@@ -405,6 +405,6 @@ def get_and_save_eur():
         df = pd.read_csv(csv_file,sep=';')
         df = df.rename(columns=dic_euro)
         df.to_csv(name_output[i],sep=';')
-   stop_time=time.time()    
+    stop_time=time.time()    
 
-   #print(f"needed {round(stop_time-start_time,4)} seconds")
+    #print(f"needed {round(stop_time-start_time,4)} seconds")
