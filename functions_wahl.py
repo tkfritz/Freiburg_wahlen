@@ -101,7 +101,7 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
        'Gewinne_GRÜNE':'RdYlGn', 'Gewinne_SPD':'RdYlGn', 'Gewinne_AfD':'RdYlGn', 'Gewinne_FDP':'RdYlGn', 
                'Gewinne_LINKE':'RdYlGn','Gewinne_sonstige':'RdYlGn'
               }  
-     if wahl=='gemeinderat':
+     if wahl=='Gemeinderat':
          partei_liste=[ 'CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
