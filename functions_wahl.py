@@ -243,7 +243,7 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
     df_new.loc[:,'namen']=np.where(df_new.loc[:,'namen']=='Urbanes_F','Urbanes',df_new.loc[:,'namen']) 
     df_new.loc[:,'namen']=np.where(df_new.loc[:,'namen']=='Bürger_F','Bürger',df_new.loc[:,'namen'])      
     df_new.loc[:,'namen']=np.where(df_new.loc[:,'namen']=='Meinrad_Spitz','Meinrad Spitz',df_new.loc[:,'namen'])       
-    plt.figsize=(10,10)
+    plt.figure(figsize=(10, 8))
     plt.bar(df_new.namen,df_new.Prozent_24,color=bar_colors)
     plt.xticks(rotation=80)
     plt.ylabel(ylabel)    
