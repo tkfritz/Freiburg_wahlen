@@ -218,13 +218,21 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",parteien=['CDU',
 
 def get_process_wahl(wahl='Gemeinderat'):
     if wahl=='Gemeinderat':
+        gem24_all=pd.read_csv('eu24_summe.csv',sep=';')
+        gem24_stadtbezirke=pd.read_csv('eu24_stadtbezirke.csv',sep=';')
+        gem24_stadtbezirke['wahlbezirke_prozent']=gem24_stadtbezirke['anz-schnellmeldungen']/gem24_stadtbezirke['max-schnellmeldungen']*100
+        gem24_wahlbezirke=pd.read_csv('eu24_wahlbezirke.csv',sep=';')
+        print(f"Wahlbezirke {gem24_wahlbezirke['max-schnellmeldungen'].sum()}")
+        print(f"ausgezaehlte Wahlbezirke {gem24_wahlbezirke['anz-schnellmeldungen'].sum()}")
+        gem24_stadtbezirke.set_index('gebiet-name',inplace=True)
+    elif wahl=='Europa':
         gem24_all=pd.read_csv('gem24_summe.csv',sep=';')
         gem24_stadtbezirke=pd.read_csv('gem24_stadtbezirke.csv',sep=';')
         gem24_stadtbezirke['wahlbezirke_prozent']=gem24_stadtbezirke['anz-schnellmeldungen']/gem24_stadtbezirke['max-schnellmeldungen']*100
         gem24_wahlbezirke=pd.read_csv('gem24_wahlbezirke.csv',sep=';')
         print(f"Wahlbezirke {gem24_wahlbezirke['max-schnellmeldungen'].sum()}")
         print(f"ausgezaehlte Wahlbezirke {gem24_wahlbezirke['anz-schnellmeldungen'].sum()}")
-        gem24_stadtbezirke.set_index('gebiet-name',inplace=True)
+        gem24_stadtbezirke.set_index('gebiet-name',inplace=True)        
     bev=pd.read_csv("de-bw-freiburg-grunddaten_fuer_indikatoren_stadtbezirke_-_bevoelkerungsbestand.csv",dtype=str)
     for i in range(bev.shape[1]):
         if i==2 or i==3:
