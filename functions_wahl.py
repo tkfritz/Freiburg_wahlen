@@ -106,7 +106,7 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
        'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
-     elif wahl=='europa':    
+     elif wahl=='Europa':    
              partei_liste=[ 'CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
        'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
