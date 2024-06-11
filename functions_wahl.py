@@ -561,3 +561,9 @@ def get_diff(df,wahl='Gemeinderat',jahr=2024):
             elif parteien[i]=='kein' and listen19[i]!='kein':
                 df[diff[i]]=-df[listen19[i]]       
         return df  
+
+def get_gem19():
+    gem19=pd.read_csv('komm19_stadtbezirke.csv',dtype=str,sep=';')
+    for i in range(3,gem19.shape[1]):
+        gem19.iloc[:,i]=gem19.iloc[:,i].str.replace(",",".").astype(float) 
+    return gem19    
