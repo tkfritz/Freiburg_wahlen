@@ -134,7 +134,7 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
                      legend_kwds={"label": legend, "orientation": "horizontal"},)
      plot.set_axis_off()   
     
-    
+       
 def sainte_l(array_all,sitze=48,test=True,parteien=['CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
@@ -173,13 +173,21 @@ def sainte_l(array_all,sitze=48,test=True,parteien=['CDU',
                print(f" {int(np.sum(res_sitze))} wurden zugeteilt, {sitze} sollten es sein")              
         return res_sitze         
     
-    
-def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU','GRÜNE', 'SPD', 'AfD', 'FDP', 'FW'],Wahl='Gemeinderat'):
+def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU','GRÜNE', 'SPD', 'AfD', 'FDP', 'FW'],Wahl='Gemeinderat',diff=False):
     if Wahl=='Gemeinderat':
-        parteien=['CDU',
+        if diff==False:
+            parteien=['CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
        'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
-       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']    
+        else:
+            parteien=['CDU_differenz', 'GRÜNE_differenz', 'SPD_differenz', 'LiSSt._differenz',
+       'AfD_differenz', 'FDP_differenz', 'FW_differenz',
+       'DIE_PARTEI_differenz', 'GAF_differenz', 'FL_differenz',
+       'Junges_F_differenz', 'Urbanes_F_differenz', 'Kultur_differenz',
+       'Bürger_F_differenz', 'UFF_differenz', 'LTI_differenz',
+       'FFPCV_differenz', 'Volt_differenz', 'APPD_differenz',
+       'Meinrad_Spitz_differenz', 'NICHT_differenz']
     elif Wahl=='Europa':
         parteien=[ 'CDU',
        'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
@@ -187,13 +195,49 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
        'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
        'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
        'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
-    if sitze==0:
+    if sitze==0 and diff==False:
         array=np.array(df.loc[index,parteien])[:]/np.array(df.loc[index,'Gueltige_Stimmen'])*100
-    else:
+    elif sitze==0 and diff==True:    
+        array=np.array(df.loc[index,parteien])[:]
+        ylabel='Veraenderung zur letzten Wahl [%]'
+        n_parteien=[]
+        for i in range(len(parteien)):
+            s=str.split(parteien[i],'_d')
+            n_parteien.append(s[0])
+        parteien=n_parteien    
+    elif sitze>0 and diff==False:
         array=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze,parteien=parteien)
         ylabel='Gemeinderatssitze'
         if Wahl=='Europa':
             ylabel='Europaparliamentssitze'
+    elif sitze>0 and diff==True:
+        parteien=['CDU','GRÜNE', 'SPD', 'LiSSt.', 'AfD', 'FDP', 'FW',
+              'DIE_PARTEI', 'GAF',
+       'FL',  'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'FFPCV','Volt', 'Meinrad_Spitz',  'APPD']
+        listen19=['CDU_Stimmen_19','GRÜNE_Stimmen_19','SPD_Stimmen_19',      'LiSST_Stimmen_19','AfD_Stimmen_19',
+       'FDP_Stimmen_19',  'FW_Stimmen_19',  'DIE_PARTEI_Stimmen_19', 'GAF_Stimmen_19',
+       'FL_Stimmen_19', 'Junges_F_Stimmen_19', 'Urbanes_F_Stimmen_19', 'Kultur_Stimmen_19', 'Bürger_F_Stimmen_19',
+       'UFF_Stimmen_19', 'LTI_Stimmen_19', 'FFPCV_Stimmen_19', 'NICHT_Stimmen_19'] 
+        print(df)
+        array24=sainte_l(df.loc[index,parteien][:],test=False,sitze=sitze,parteien=parteien)
+        print(array24)
+        arrayb=np.zeros((array24.shape[0]+1))
+        arrayb[:-1]=array24
+        array19=sainte_l(df.loc[index,listen19][:],test=False,sitze=sitze,parteien=listen19)
+        print(array19)
+        array19b=np.zeros((array19.shape[0]+3))
+        array19b[:-4]=array19[:-1]      
+        array19b[-1]=array19[-1]
+        print(arrayb.shape,array19b.shape)
+        array=arrayb-array19b
+        parteien=['CDU','GRÜNE', 'SPD', 'LiSSt.', 'AfD', 'FDP', 'FW',
+              'DIE_PARTEI', 'GAF',
+       'FL',  'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'FFPCV','Volt', 'Meinrad_Spitz',  'APPD','NICHT']
+        ylabel='Gemeinderatssitzeveraenderung'
+        if Wahl=='Europa':
+            ylabel='Europaparliamentssitzeveraenderung'         
     d = {'namen': parteien, 'Prozent_24':array}
 
     df_new=pd.DataFrame(data=d)
@@ -264,6 +308,9 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
     plt.xticks(rotation=80)
     plt.ylabel(ylabel)    
     plt.title(title)
+    
+    
+    
 
 def get_process_wahl(wahl='Gemeinderat',final=True):
     if wahl=='Gemeinderat':
@@ -492,3 +539,4 @@ def get_percent(df,columns=['SPD','CDU'],endung='_gem24',wahl='Gemeinderat'):
 
 def linf(x,a,b):
     return a+x*b
+
