@@ -463,3 +463,32 @@ def get_and_save_eur():
     stop_time=time.time()    
 
     #print(f"needed {round(stop_time-start_time,4)} seconds")
+
+def get_percent(df,columns=['SPD','CDU'],endung='_gem24',wahl='Gemeinderat'):
+    if wahl=='Gemeinderat':
+        columns=['CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
+       'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+    elif wahl=='Europa':
+        endung='_eu24'
+        columns=['CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
+       'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
+       'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
+       'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
+       'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
+    for i in range(len(columns)):
+        new_col=columns[i]+'_prozent'+endung
+        df[new_col]=df[columns[i]]/df['Gueltige_Stimmen']*100
+    if wahl=='Europa':
+        #rename to avoid name collisions
+        party_dic={'CDU':'CDU_eu24',
+       'GRÜNE':'GRÜNE_eu24', 'SPD':'SPD_eu24', 'AfD':'AfD_eu24', 'FDP':'FDP_eu24', 'FW':'FW_eu24',
+                   'DIE_PARTEI':'DIE_PARTEI_eu24', 'Volt':'Volt_eu24'}
+        df.rename(columns=party_dic,inplace=True)
+    return df
+
+
+def linf(x,a,b):
+    return a+x*b
