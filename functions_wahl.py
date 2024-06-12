@@ -570,3 +570,24 @@ def get_gem19():
     for i in range(3,gem19.shape[1]):
         gem19.iloc[:,i]=gem19.iloc[:,i].str.replace(",",".").astype(float) 
     return gem19    
+
+def combiniere_19(new,old,area='gesamt'):
+    new=get_percent(new)
+    listen19=['GRÜNE_Prozent_19','CDU_Prozent_19','SPD_Prozent_19',      'LiSST_Prozent_19',
+       'FW_Prozent_19', 'NICHT_Prozent_19','LTI_Prozent_19',  'AfD_Prozent_19',
+       'Urbanes_F_Prozent_19',        'Bürger_F_Prozent_19',  'FL_Prozent_19',
+ 'FDP_Prozent_19',        'Kultur_Prozent_19',  'Junges_F_Prozent_19',   'GAF_Prozent_19',  'UFF_Prozent_19',
+ 'DIE_PARTEI_Prozent_19',       'FFPCV_Prozent_19']
+    listen19s=['GRÜNE_Stimmen_19','CDU_Stimmen_19','SPD_Stimmen_19',      'LiSST_Stimmen_19',
+       'FW_Stimmen_19', 'NICHT_Stimmen_19','LTI_Stimmen_19',  'AfD_Stimmen_19',
+       'Urbanes_F_Stimmen_19',        'Bürger_F_Stimmen_19',  'FL_Stimmen_19',
+ 'FDP_Stimmen_19',        'Kultur_Stimmen_19',  'Junges_F_Stimmen_19',   'GAF_Stimmen_19',  'UFF_Stimmen_19',
+ 'DIE_PARTEI_Stimmen_19',       'FFPCV_Stimmen_19']
+    if area=='gesamt':
+        new[listen19]=old.loc[old.shape[0]-1,listen19]
+        new[listen19s]=old.loc[old.shape[0]-1,listen19s]
+    if area=='Stadtbezirke':
+        old.set_index('region19',inplace=True)
+        new=new.join(old)
+    new=get_diff(new)
+    return new
