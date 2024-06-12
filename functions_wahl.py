@@ -113,17 +113,35 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
        'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
        'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
        'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
+           
      if column in dic_label.keys():
-         legend=dic_label[column]        
+         legend=dic_label[column]  
+         val_max=df[column].max()
+         val_min=df[column].min()
+         vmin=val_min
+         vmax=val_max         
      if column in col_label.keys():
          cmap=col_label[column]   
+         val_max=df[column].max()
+         val_min=df[column].min()
+         vmin=val_min
+         vmax=val_max         
      if column[-10:]=='_differenz':
+         val_max=df[column].max()
+         val_min=df[column].min()
+         abs_max=max(abs(val_max),abs(val_min))
+         vmin=-abs_max
+         vmax=abs_max
          cmap='RdYlGn'
          legend='Veraenderung '+column[:-10]+' [%]'
      if column in partei_liste:
          df['Anteil']=df[column]/df['Gueltige_Stimmen']*100
          column='Anteil'
-        
+         val_max=df[column].max()
+         val_min=df[column].min()
+         vmin=val_min
+         vmax=val_max
+         
      fig, ax = plt.subplots(1, 1,figsize=(10,10))
      divider = make_axes_locatable(ax)
      cax = divider.append_axes("bottom", size="5%", pad=0.1)
@@ -132,7 +150,7 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
      plot=df.plot(column=column,
                      ax=ax,
                      legend=True,cax=cax,
-                     cmap=cmap,
+                     cmap=cmap,vmin=vmin,vmax=vmax,
                 
                      legend_kwds={"label": legend, "orientation": "horizontal"},)
      plot.set_axis_off()   
