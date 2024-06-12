@@ -114,9 +114,12 @@ def karte_stadtbezirke(df,column,cmap='Greys',legend='Anteil [%]',wahl='Gemeinde
        'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
        'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
      if column in dic_label.keys():
-         legend=dic_label[column]
+         legend=dic_label[column]        
      if column in col_label.keys():
-         cmap=col_label[column]    
+         cmap=col_label[column]   
+     if column[-10:]=='_differenz':
+         cmap='RdYlGn'
+         legend='Veraenderung '+column[:-10]+' [%]'
      if column in partei_liste:
          df['Anteil']=df[column]/df['Gueltige_Stimmen']*100
          column='Anteil'
