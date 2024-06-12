@@ -247,7 +247,6 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
         array19b=np.zeros((array19.shape[0]+3))
         array19b[:-4]=array19[:-1]      
         array19b[-1]=array19[-1]
-        print(arrayb.shape,array19b.shape)
         array=arrayb-array19b
         parteien=['CDU','GRÜNE', 'SPD', 'LiSSt.', 'AfD', 'FDP', 'FW',
               'DIE_PARTEI', 'GAF',
