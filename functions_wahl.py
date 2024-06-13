@@ -12,6 +12,7 @@ import requests
 import io
 import time
 import seaborn as sns
+from sklearn.linear_model import LinearRegression
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -630,8 +631,8 @@ def corr_selbst(df,all_parties=False,ending='_prozent_gem24',self_zero=True):
     #change name to short one back 
     corr.columns=parties
     corr.index=parties
-    val_max=corr.max()[0]
-    val_min=corr.min()[0]
+    val_max=np.max(corr.max())
+    val_min=np.min(corr.min())
     abs_max=max(abs(val_max),abs(val_min))
     vmin=-abs_max
     vmax=abs_max
