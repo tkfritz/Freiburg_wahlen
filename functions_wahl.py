@@ -11,6 +11,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import requests
 import io
 import time
+import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -608,3 +609,34 @@ def combiniere_19(new,old,area='gesamt'):
         new=new.join(old)
     new=get_diff(new)
     return new
+
+def corr_selbst(df,all_parties=False,ending='_prozent_gem24',self_zero=True):
+    if all_parties==True:
+        parties=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
+       'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+    else:    
+          parties=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.']
+    columns=[]
+    for i in range(len(parties)):
+        columns.append(parties[i]+ending)           
+    corr=df.loc[:,columns].corr()
+    #make self corr to zero, distracting for not expert 
+    if self_zero==True:
+        for i in range(corr.shape[0]):
+            corr.iloc[i,i]=0
+    #change name to short one back 
+    corr.columns=parties
+    corr.index=parties
+    val_max=corr.max()[0]
+    val_min=corr.min()[0]
+    abs_max=max(abs(val_max),abs(val_min))
+    vmin=-abs_max
+    vmax=abs_max
+    f, ax = plt.subplots(figsize=(10, 8))    
+    sns.heatmap(corr,vmin=vmin,vmax=vmax,
+    cmap=sns.diverging_palette(220, 10, as_cmap=True),
+    square=True, ax=ax)
+    return corr
