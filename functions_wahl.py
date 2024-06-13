@@ -641,3 +641,57 @@ def corr_selbst(df,all_parties=False,ending='_prozent_gem24',self_zero=True):
     cmap=sns.diverging_palette(220, 10, as_cmap=True),
     square=True, ax=ax)
     return corr
+
+
+def corr_other(sel,a='gem24',b="eu24",fig_size=(11,6)):
+    if a=='gem24':
+        partei_gem=['CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
+       'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+    elif a=='eu24':
+        partei_gem=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
+       'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
+       'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
+       'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
+       'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']
+    if b=='gem24':
+        eu_parteien=['CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LiSSt.', 'DIE_PARTEI', 'GAF',
+       'FL', 'Volt', 'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
+       'UFF', 'LTI', 'APPD', 'FFPCV', 'Meinrad_Spitz']
+    elif b=='eu24':
+        eu_parteien=[ 'CDU',
+       'GRÜNE', 'SPD', 'AfD', 'FDP', 'FW', 'LINKE', 'DIE_PARTEI', 'Tierschutz',
+       'ÖDP', 'Volt', 'Piraten', 'Familien', 'MERA25', 'Bündnis_C',
+       'Aktion_Tierschutz', 'BIG', 'HEIMAT', 'PdH', 'PfSV', 'MW', 'MLPD',
+       'DKP', 'SGP', 'ABG', 'dieBasis', 'B_Deutschland', 'BSW', 'DAVA',
+       'Klimaliste', 'Letzte_Generation', 'PDV', 'PdF', 'PVVV']        
+    resp=np.zeros((len(partei_gem),len(eu_parteien)))
+    for j in range(len(partei_gem)):
+        party=partei_gem[j]
+        if a=='gem24':
+            col=party+'_prozent_gem24'
+        elif a=='eu24':
+            col=party+'_prozent_eu24'      
+        for i in range(len(eu_parteien)):
+            ar=np.zeros((2,sel.shape[0]))
+            if b=='eu24':
+                ar[0]=sel[eu_parteien[i]+'_prozent_eu24']
+            elif  b=='gem24':
+                ar[0]=sel[eu_parteien[i]+'_prozent_gem24']
+            ar[1]=sel[col]           
+            corr=np.corrcoef(ar[0],ar[1])
+            resp[j,i]=corr[0,1]  
+    corr=pd.DataFrame(data=resp,index=partei_gem,columns=eu_parteien)
+    val_max=np.max(corr.max())
+    val_min=np.min(corr.min())
+    abs_max=max(abs(val_max),abs(val_min))
+    vmin=-abs_max
+    vmax=abs_max
+    f, ax = plt.subplots(figsize=fig_size)    
+    sns.heatmap(corr,vmin=vmin,vmax=vmax,
+    cmap=sns.diverging_palette(220, 10, as_cmap=True),
+    square=True, ax=ax)
+    return corr
