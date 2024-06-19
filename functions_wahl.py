@@ -439,12 +439,33 @@ def get_process_wahl(wahl='Gemeinderat',final=True):
         comb3['Gewinne_sonstige']=-(comb3['Gewinne_GRÜNE']+comb3['Gewinne_CDU']+comb3['Gewinne_SPD']+comb3['Gewinne_LINKE']+comb3['Gewinne_FDP']+comb3['Gewinne_AfD'])
         comb3['Asylbewerber_anteil']=comb3['Asylbewerber']/comb3['einwohner']*100
         comb3['Auslaender_anteil']=comb3['einwohner_nd']/comb3['einwohner']*100
-        comb3['Sozialhilfe_anteil']=comb3['Sozialhilfe_personen_kof']/comb3['einwohner']*100
+        comb3['EU-Auslaender_Anteil']=comb3['einwohner_eu']/comb3['einwohner']*100        
+        comb3['Sozialhilfe_Anteil']=comb3['Sozialhilfe_personen_kof']/comb3['einwohner']*100
+        comb3['Frauen_Anteil']=comb3['einwohner_w']/comb3['einwohner']*100
+        comb3['Maenner_Anteil']=comb3['einwohner_m']/comb3['einwohner']*100     
+        comb3['Behinderte_Anteil']=comb3['Behinderte']/comb3['einwohner']*100     
+        comb3['Neueinwohner_Anteil']=comb3['einwohner_neu']/comb3['einwohner']*100
+        comb3['Nebenwohnsitze_Anteil']=comb3['einwohner_pneben']/comb3['einwohner']*100  
+        comb3['Rentner_Anteil']=comb3['einwohner_65p']/comb3['einwohner']*100
+        comb3['Studenten_Anteil']=(comb3['einwohner_u25']-comb3['einwohner_u18'])/comb3['einwohner']*100  
+        comb3['Kinder_Anteil']=comb3['einwohner_u18']/comb3['einwohner']*100 
+        comb3['Arbeitende_Anteil']=(comb3['einwohner_u65']-comb3['einwohner_u18'])/comb3['einwohner']*100          
         return gem24_all, comb3, gem24_wahlbezirke   
     elif wahl=='Gemeinderat':
         comb2['Asylbewerber_anteil']=comb2['Asylbewerber']/comb2['einwohner']*100
         comb2['Auslaender_anteil']=comb2['einwohner_nd']/comb2['einwohner']*100
         comb2['Sozialhilfe_anteil']=comb2['Sozialhilfe_personen_kof']/comb2['einwohner']*100
+        comb2['EU-Auslaender_Anteil']=comb2['einwohner_eu']/comb2['einwohner']*100        
+        comb2['Sozialhilfe_Anteil']=comb2['Sozialhilfe_personen_kof']/comb2['einwohner']*100
+        comb2['Frauen_Anteil']=comb2['einwohner_w']/comb2['einwohner']*100
+        comb2['Maenner_Anteil']=comb2['einwohner_m']/comb2['einwohner']*100     
+        comb2['Behinderte_Anteil']=comb2['Behinderte']/comb2['einwohner']*100     
+        comb2['Neueinwohner_Anteil']=comb2['einwohner_neu']/comb2['einwohner']*100
+        comb2['Nebenwohnsitze_Anteil']=comb2['einwohner_pneben']/comb2['einwohner']*100  
+        comb2['Rentner_Anteil']=comb2['einwohner_65p']/comb2['einwohner']*100
+        comb2['Studenten_Anteil']=(comb2['einwohner_u25']-comb2['einwohner_u18'])/comb2['einwohner']*100  
+        comb2['Kinder_Anteil']=comb2['einwohner_u18']/comb2['einwohner']*100 
+        comb2['Arbeitende_Anteil']=(comb2['einwohner_u65']-comb2['einwohner_u18'])/comb2['einwohner']*100         
         return gem24_all, comb2, gem24_wahlbezirke 
     
     
