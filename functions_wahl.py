@@ -238,7 +238,7 @@ def make_bar_plot(df,title='',index=0,ylabel="Anteil [%]",sitze=0,parteien=['CDU
               'DIE_PARTEI', 'GAF',
        'FL',  'Junges_F', 'Urbanes_F', 'Kultur', 'Bürger_F',
        'UFF', 'LTI', 'FFPCV','Volt', 'Meinrad_Spitz',  'APPD']
-        listen19=['CDU_Stimmen_19','GRÜNE_Stimmen_19','SPD_Stimmen_19',      'LiSST_Stimmen_19','AfD_Stimmen_19',
+        listen19=['CDU_Stimmen_19','GRÜNE_Stimmen_19','SPD_Stimmen_19',      'LiSSt._Stimmen_19','AfD_Stimmen_19',
        'FDP_Stimmen_19',  'FW_Stimmen_19',  'DIE_PARTEI_Stimmen_19', 'GAF_Stimmen_19',
        'FL_Stimmen_19', 'Junges_F_Stimmen_19', 'Urbanes_F_Stimmen_19', 'Kultur_Stimmen_19', 'Bürger_F_Stimmen_19',
        'UFF_Stimmen_19', 'LTI_Stimmen_19', 'FFPCV_Stimmen_19', 'NICHT_Stimmen_19'] 
@@ -566,7 +566,7 @@ def get_diff(df,wahl='Gemeinderat',jahr=2024):
               'DIE_PARTEI_prozent_gem24', 'GAF_prozent_gem24',
        'FL_prozent_gem24', 'Volt_prozent_gem24', 'Junges_F_prozent_gem24', 'Urbanes_F_prozent_gem24', 'Kultur_prozent_gem24', 'Bürger_F_prozent_gem24',
        'UFF_prozent_gem24', 'LTI_prozent_gem24', 'APPD_prozent_gem24', 'FFPCV_prozent_gem24', 'Meinrad_Spitz_prozent_gem24','kein']
-        listen19=['CDU_Prozent_19','GRÜNE_Prozent_19','SPD_Prozent_19',      'LiSST_Prozent_19','AfD_Prozent_19',
+        listen19=['CDU_Prozent_19','GRÜNE_Prozent_19','SPD_Prozent_19',      'LiSSt._Prozent_19','AfD_Prozent_19',
        'FDP_Prozent_19',  'FW_Prozent_19',  'DIE_PARTEI_Prozent_19', 'GAF_Prozent_19',
        'FL_Prozent_19', 'kein', 'Junges_F_Prozent_19', 'Urbanes_F_Prozent_19', 'Kultur_Prozent_19', 'Bürger_F_Prozent_19',
        'UFF_Prozent_19', 'LTI_Prozent_19', 'kein', 'FFPCV_Prozent_19', 'kein', 'NICHT_Prozent_19']               
@@ -592,12 +592,12 @@ def get_gem19():
 
 def combiniere_19(new,old,area='gesamt'):
     new=get_percent(new)
-    listen19=['GRÜNE_Prozent_19','CDU_Prozent_19','SPD_Prozent_19',      'LiSST_Prozent_19',
+    listen19=['GRÜNE_Prozent_19','CDU_Prozent_19','SPD_Prozent_19',      'LiSSt._Prozent_19',
        'FW_Prozent_19', 'NICHT_Prozent_19','LTI_Prozent_19',  'AfD_Prozent_19',
        'Urbanes_F_Prozent_19',        'Bürger_F_Prozent_19',  'FL_Prozent_19',
  'FDP_Prozent_19',        'Kultur_Prozent_19',  'Junges_F_Prozent_19',   'GAF_Prozent_19',  'UFF_Prozent_19',
  'DIE_PARTEI_Prozent_19',       'FFPCV_Prozent_19']
-    listen19s=['GRÜNE_Stimmen_19','CDU_Stimmen_19','SPD_Stimmen_19',      'LiSST_Stimmen_19',
+    listen19s=['GRÜNE_Stimmen_19','CDU_Stimmen_19','SPD_Stimmen_19',      'LiSSt._Stimmen_19',
        'FW_Stimmen_19', 'NICHT_Stimmen_19','LTI_Stimmen_19',  'AfD_Stimmen_19',
        'Urbanes_F_Stimmen_19',        'Bürger_F_Stimmen_19',  'FL_Stimmen_19',
  'FDP_Stimmen_19',        'Kultur_Stimmen_19',  'Junges_F_Stimmen_19',   'GAF_Stimmen_19',  'UFF_Stimmen_19',
